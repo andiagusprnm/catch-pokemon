@@ -1,21 +1,45 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { Header } from '../components/Header'
 import { Container, Row, Col, Table, Button } from 'react-bootstrap'
 
 import { FormExchange } from '../components/FormExchange'
 
+import { setHeader } from '../helper/SetDefaultHeader'
+import { API } from '../url'
+
 
 export const ExchangePokemon = () => {
+	const [exchangeList, setExchangeList] = useState([])
 	const [showModalExchange, setShowModalExchange] = useState(false)
 
 	const handleCloseExchangeModal = () => setShowModalExchange(false)
   const handleExchangeModal = () => setShowModalExchange(true)
 
+  useEffect(() => {
+  	getExchangeList()
+  }, [])
+
+  const getExchangeList = async () => {
+    try {
+    	const metadata = {
+        method: 'GET',
+        headers: setHeader({
+          'Content-Type': 'application/json'
+        })
+      }
+      const result = await (await fetch(`${API}/exchanges`, metadata)).json()
+
+      setExchangeList(result.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 	return (
 		<div>
 			<Header />
 			<Container>
-				<FormExchange show={ showModalExchange } handleClose={ setShowModalExchange } />
+				<FormExchange show={ showModalExchange } getExchangeList={ getExchangeList } handleClose={ setShowModalExchange } />
 				<h1 className="text-center">Exchange Pokemon</h1>
 				<Button onClick={ handleExchangeModal }>Add Pokemon Exchange</Button>
 				<Row className="my-3">
@@ -33,15 +57,19 @@ export const ExchangePokemon = () => {
 						    </tr>
 						  </thead>
 						  <tbody>
-						    <tr>
-						      <td>1</td>
-						      <td>Aldi</td>
-						      <td>Bulbasaur</td>
-						      <td>Jiggly Puff</td>
-						      <td>pending</td>
-						      <td>-</td>
-						      <td style={{ cursor: 'pointer' }}>exchange</td>
-						    </tr>
+						  	{
+						  		exchangeList?.map((exchange) => (
+						  			<tr>
+								      <td>1</td>
+								      <td>{ exchange.user_owner.firstname }</td>
+								      <td>{ exchange.pokemon.name }</td>
+								      <td>{ exchange.wanted }</td>
+								      <td>{ exchange.status }</td>
+								      <td>-</td>
+								      <td style={{ cursor: 'pointer' }}>exchange</td>
+								    </tr>
+						  		))
+						  	}
 						  </tbody>
 						</Table>
 					</Col>

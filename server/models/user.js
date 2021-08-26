@@ -15,6 +15,14 @@ module.exports = (sequelize, DataTypes) => {
         as: 'pokemon',
         foreignKey: 'owner_user_id'
       })
+      User.hasMany(models.Exchange, {
+        as: 'user_owner',
+        foreignKey: 'user_submission'
+      })
+      User.hasMany(models.Exchange, {
+        as: 'user_exchange',
+        foreignKey: 'user_exchange'
+      })
     }
   };
   User.init({

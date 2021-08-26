@@ -11,6 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Exchange.belongsTo(models.User, {
+        as: 'user_owner',
+        foreignKey: 'user_submission'
+      })
+      Exchange.belongsTo(models.User, {
+        as: 'user_trader',
+        foreignKey: 'user_exchange'
+      })
+      Exchange.belongsTo(models.Pokemon, {
+        as: 'pokemon',
+        foreignKey: 'pokemon_id'
+      })
     }
   };
   Exchange.init({

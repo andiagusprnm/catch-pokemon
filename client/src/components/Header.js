@@ -30,7 +30,7 @@ export const Header = () => {
       <LoginModal show={ showLoginModal } handleClose={ handleCloseLoginModal } />
       <RegisterModal show={ showRegisterModal } handleClose={ handleCloseRegisterModal } />
       <Container>
-        <Navbar.Brand href="#home">Pokemon</Navbar.Brand>
+        <Navbar.Brand onClick={ () => router.push('/') }>Pokemon</Navbar.Brand>
         <div className="justify-content-end">
         { state.isLogin ?
           <Navbar.Text>

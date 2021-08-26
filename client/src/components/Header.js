@@ -41,6 +41,9 @@ export const Header = () => {
             <Button variant="warning mr-3" onClick={ () => router.push('/catch-pokemon') }>
               Catch Pokemon
             </Button>
+            <Button variant="secondary mr-3" onClick={ () => router.push('/exchange') }>
+              Exchange
+            </Button>
             <Button variant="primary" onClick={ onClickLogout }>
               Logout
             </Button>

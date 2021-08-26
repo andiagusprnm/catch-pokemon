@@ -5,6 +5,7 @@ import { Home } from './pages/Home'
 import { DetailPokemon } from './pages/DetailPokemon'
 import { MyPokemonList } from './pages/MyPokemonList'
 import { CatchPokemon } from './pages/CatchPokemon'
+import { ExchangePokemon } from './pages/ExchangePokemon'
 
 import { UserContext } from './context/UserContext'
 import { PokemonContext } from './context/PokemonContext'
@@ -61,6 +62,7 @@ function App() {
         <Route path="/" exact component={ Home } />
         <ProtectedRoute path="/mypokemon" component={ MyPokemonList } auth={ state.isLogin } />
         <ProtectedRoute path="/catch-pokemon" component={ CatchPokemon } auth={ state.isLogin } />
+        <ProtectedRoute path="/exchange" component={ ExchangePokemon } auth={ state.isLogin } />
       </Switch>
     </BrowserRouter>
   )

@@ -28,7 +28,6 @@ export const MyPokemonList = () => {
         })
       }
   		const myPokemons = await (await fetch(`${API}/pokemons/owner`, metadata)).json()
-  		console.log(myPokemons)
   		setPokemons(myPokemons.pokemons)
   	}
   	filterMyPokemon()
